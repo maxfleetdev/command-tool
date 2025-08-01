@@ -23,7 +23,7 @@ namespace Commander
 
         #endregion
 
-        #region Methods
+        #region Lifecycle
 
         /// <summary>
         /// Register given MonoBehaviour's methods as commands.
@@ -73,28 +73,6 @@ namespace Commander
             }
         }
 
-        public static void ExecuteCommand(string commandName, params object[] parameters)
-        {
-            if (_commands.TryGetValue(commandName, out var list))
-            {
-                foreach (var (mi, target) in list)
-                {
-                    try
-                    {
-                        mi.Invoke(target, parameters);
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.LogError($"Error executing command '{commandName}': {ex.Message}");
-                    }
-                }
-            }
-            else
-            {
-                Debug.LogWarning($"Command '{commandName}' not found.");
-            }
-        }
-
         public static void ClearCommands()
         {
             _commands.Clear();
@@ -105,5 +83,67 @@ namespace Commander
         }
 
         #endregion
+
+        #region Command Execution
+
+        public static void ExecuteCommand(string commandInput)
+        {
+            CommandParser.StringToCommand(commandInput, out string command, out string[] arguments);
+            ExecuteCommand(command, arguments);
+        }
+
+        private static void ExecuteCommand(string commandName, string[] rawArgs)
+        {
+            if (!_commands.TryGetValue(commandName, out var entries))
+            {
+                Debug.LogWarning($"Command '{commandName}' not found.");
+                return;
+            }
+
+            foreach (var (mi, target) in entries)
+            {
+                var paramInfos = mi.GetParameters();
+                if (paramInfos.Length != rawArgs.Length)
+                {
+                    Debug.LogError($"Command '{commandName}' expects {paramInfos.Length} args, got {rawArgs.Length}");
+                    continue;
+                }
+
+                var converted = new object[rawArgs.Length];
+                bool conversionFailed = false;
+                for (int i = 0; i < rawArgs.Length; i++)
+                {
+                    var t = paramInfos[i].ParameterType;
+                    try
+                    {
+                        converted[i] = CommandParser.ConvertStringToType(rawArgs[i], t);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError(
+                          $"Command '{commandName}': failed to convert \"{rawArgs[i]}\" to {t.Name}: {e.Message}");
+                        conversionFailed = true;
+                        break;
+                    }
+                }
+
+                if (conversionFailed)
+                {
+                    continue;
+                }
+
+                try
+                {
+                    mi.Invoke(target, converted);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError(
+                      $"Error executing '{commandName}': {ex.InnerException?.Message ?? ex.Message}");
+                }
+            }
+        }
     }
+
+    #endregion
 }
