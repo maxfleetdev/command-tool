@@ -10,16 +10,16 @@ namespace Commander
         #region Properties
 
         /// <summary>
-        /// Enable or disable debug logs
-        /// </summary>
-        public static bool ShowDebugLogs = true;
-
-        /// <summary>
         /// Name of command and it's tuple of method info and target MonoBehaviour
         /// </summary>
         private static Dictionary<string, List<(MethodInfo mi, MonoBehaviour target)>> _commands
             = new Dictionary<string, List<(MethodInfo, MonoBehaviour)>>
             (StringComparer.OrdinalIgnoreCase);
+
+        /// <summary>
+        /// Enable or disable debug logs
+        /// </summary>
+        public static bool ShowDebugLogs = true;
 
         #endregion
 

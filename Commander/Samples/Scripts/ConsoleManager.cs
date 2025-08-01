@@ -7,7 +7,10 @@ public class ConsoleManager : MonoBehaviour, ConsoleInput.IUIActions
 {
     [SerializeField] private GameObject consoleUI;
     [SerializeField] private TMP_InputField inputField;
+    
     private ConsoleInput _consoleInput;
+
+    #region Lifecycle
 
     private void Awake()
     {
@@ -27,14 +30,24 @@ public class ConsoleManager : MonoBehaviour, ConsoleInput.IUIActions
         inputField.onSubmit.RemoveAllListeners();
     }
 
+    #endregion
+
+    #region Input Events
+
     public void OnConsoleToggle(InputAction.CallbackContext context)
     {
         bool toggle = !consoleUI.activeSelf;
         consoleUI.SetActive(toggle);
     }
 
+    #endregion
+
+    #region UI Events
+
     public void InputSent(string input)
     {
         CommandRegistry.ExecuteCommand(input);
     }
+
+    #endregion
 }
