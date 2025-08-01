@@ -1,0 +1,34 @@
+{
+    "name": "ConsoleInput",
+    "maps": [
+        {
+            "name": "UI",
+            "id": "348844da-abad-4ebc-ae28-d1ed1590875b",
+            "actions": [
+                {
+                    "name": "ConsoleToggle",
+                    "type": "Button",
+                    "id": "44c0b8b7-711d-4925-b947-3a25343eaf11",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "35e81b19-76f9-421c-965d-c8f741731c95",
+                    "path": "<Keyboard>/f1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ConsoleToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

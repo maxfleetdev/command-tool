@@ -30,6 +30,8 @@ namespace Commander
 
         #endregion
 
+        #region Command Registration
+
         private void RegisterAllSceneCommands()
         {
             // Find all types deriving MonoBehaviour that have at least one [ConsoleCommand]
@@ -62,5 +64,7 @@ namespace Commander
                 }
             }
         }
+
+        #endregion
     }
 }

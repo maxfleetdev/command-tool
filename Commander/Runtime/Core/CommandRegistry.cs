@@ -23,6 +23,8 @@ namespace Commander
 
         #endregion
 
+        #region Methods
+
         /// <summary>
         /// Register given MonoBehaviour's methods as commands.
         /// Scans all methods in the MonoBehaviour for the Command attribute.
@@ -68,7 +70,6 @@ namespace Commander
             {
                 // Log the registration of commands
                 Debug.Log($"[CommandRegistry] Registered {target.GetType().Name} with {_commands.Count} methods.");
-                ExecuteCommand("TestCommand", 1, "Hello World");
             }
         }
 
@@ -80,7 +81,6 @@ namespace Commander
                 {
                     try
                     {
-                        // Invoke the method with the provided parameters
                         mi.Invoke(target, parameters);
                     }
                     catch (Exception ex)
@@ -94,7 +94,7 @@ namespace Commander
                 Debug.LogWarning($"Command '{commandName}' not found.");
             }
         }
-        
+
         public static void ClearCommands()
         {
             _commands.Clear();
@@ -103,5 +103,7 @@ namespace Commander
                 Debug.Log("[CommandRegistry] Cleared all commands.");
             }
         }
+
+        #endregion
     }
 }
