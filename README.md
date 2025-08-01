@@ -1,2 +1,2 @@
-# commander
-Custom command executer for Unity 2019+
+# Command Executer for Unity
+Custom command executer for Unity versions 2019+
