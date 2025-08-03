@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using Commander.Core;
 
-namespace Commander.Core
+namespace Commander
 {
     public static class CommandRegistry
     {
@@ -83,7 +84,14 @@ namespace Commander.Core
                 }
 
                 // Assign value of dictionary as new CommandData
-                _registeredCommands[cmdName] = new CommandData(cmdName, methodInfo, targetClass);
+                _registeredCommands[cmdName] = new CommandData(
+                    cmdName,
+                    cmdAttribute.Descrption,
+                    methodInfo,
+                    targetClass
+                    // add flags here
+                );
+
                 Debug.Log($"[CommandRegistry] Registered Command '{cmdName}'");
             }
         }
@@ -106,7 +114,7 @@ namespace Commander.Core
                             continue;
                         }
                         string cmdName = string.IsNullOrWhiteSpace(attr.Name) ? method.Name : attr.Name;
-                        _registeredCommands[cmdName] = new CommandData(cmdName, method, null);
+                        _registeredCommands[cmdName] = new CommandData(cmdName, attr.Descrption, method, null);
                         Debug.Log($"[CommandRegistry] Registered Static Command '{cmdName}'");
                     }
                 }
@@ -148,5 +156,18 @@ namespace Commander.Core
         }
 
         #endregion
+
+        [Command("help", "Shows all commands and their functions")]
+        public static void ShowAllCommands()
+        {
+            foreach (KeyValuePair<string, CommandData> kvp in _registeredCommands)
+            {
+                if (kvp.Value.Flags == CommandFlags.Hidden)
+                {
+                    continue;
+                }
+                Debug.Log(kvp.Key + " - " + kvp.Value.CommandDesc);
+            }
+        }
     }
 }

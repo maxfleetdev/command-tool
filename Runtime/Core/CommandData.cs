@@ -9,6 +9,7 @@ namespace Commander.Core
         #region Properties
 
         public string CommandName { get; }
+        public string CommandDesc { get; }
         public MethodInfo MethodData { get; }
         public object TargetClass { get; }
         public CommandFlags Flags { get; }  // Set roles and flags?
@@ -17,10 +18,11 @@ namespace Commander.Core
 
         #region Constructors
 
-        public CommandData(string commandName, MethodInfo methodData,
+        public CommandData(string commandName, string commandDesc, MethodInfo methodData,
             object targetClass, CommandFlags flags = CommandFlags.None)
         {
             CommandName = commandName;
+            CommandDesc = commandDesc;
             MethodData = methodData;
             TargetClass = targetClass;
             Flags = flags;
