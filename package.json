@@ -1,0 +1,16 @@
+{
+    "name": "com.maxfleetdev.commander",
+    "version": "1.0.0",
+    "displayName": "Command Line Tool",
+    "description": "Allows for the execution of commands at runtime.",
+    "unity": "2019.1",
+    "unityRelease": "0b5",
+    "documentationUrl": "https://github.com/maxfleetdev/unity-command-tool",
+    "changelogUrl": "https://github.com/maxfleetdev/unity-command-tool/releases",
+    "licensesUrl": "https://github.com/maxfleetdev/unity-command-tool/blob/main/LICENSE",
+    "author": {
+        "name": "Max Fleet",
+        "email": "maxfleetdev@gmail.com",
+        "url": "https://github.com/maxfleetdev"
+    }
+}
