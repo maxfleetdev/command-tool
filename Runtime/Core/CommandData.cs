@@ -34,7 +34,7 @@ namespace Commander.Core
         /// Retrieves the parameters assigned to this command
         /// </summary>
         /// <returns></returns>
-        public object[] GetParameters()
+        public ParameterInfo[] GetParameters()
         {
             return MethodData.GetParameters();
         }

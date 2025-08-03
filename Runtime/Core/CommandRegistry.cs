@@ -128,9 +128,23 @@ namespace Commander.Core
                 Debug.Log($"[CommandRegistry] No command with name '{commandName}'");
                 return false;
             }
-            
+
             // Try executing command from CommandData
             return data.Execute(args);
+        }
+
+        /// <summary>
+        /// Gets the parameters of a given command and it's linked method
+        /// </summary>
+        /// <param name="commandName">The command name</param>
+        /// <returns>ParameterInfo array</returns>
+        public static ParameterInfo[] GetParameters(string commandName)
+        {
+            if (_registeredCommands.TryGetValue(commandName, out var data))
+            {
+                return data.GetParameters();
+            }
+            return null;
         }
 
         #endregion
