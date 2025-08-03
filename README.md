@@ -3,6 +3,15 @@
 ## Important Note
 This is an ongoing project, so expect changes. All code is not final and is subject to change. I am currently working on restructuring the repo to contain less git fluff
 
+## Planned Features
+- Automatic Command Registering (source code generator?)
+- Async for Executing/Registering
+- Attribute Flags (eg Hidden, Roles etc)
+- Role assignment and command permissions
+- Command Line Example
+- Abstraction for user customisation
+
+
 ## Installation
 ### Option A (GIT Package):
 1) Open Unity Package Manager
@@ -54,3 +63,20 @@ private static void GiveCommand(int id, int quantity)
   AddItem(id, quantity);
 }
 ```
+
+### Executing Commands
+To execute commands, you simply pass the raw inputted string (eg "give 192 1") to the CommandExecuter class.
+The CommandExecuter class automatically converts the string into 2 parts: The command name, and the arguments
+- The command name is what we are looking to invoke (eg give)
+- The arguments are the method parameters the command method takes (eg int id, int quantity)
+
+It achieves this by converting the split string into each parameter Data Type. You can take a look inside CommandParser.cs for how it works.
+```c#
+// userInput = "give 192 1"
+private void OnInputSubmitted(string userInput)
+{
+  CommandExecutor.ExecuteCommand(userInput);
+  // Returns success - player recieves 1x of item ID 192
+}
+```
+If the command is successful, a log will be created. Otherwise, a warning will appear notifying the user that the command was incorrect.
