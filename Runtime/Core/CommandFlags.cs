@@ -6,6 +6,6 @@ namespace Commander.Core
         None = 0,
         Hidden = 1,
         RequiresRole = 2
-        // more command flags here...
+        // more command flags here...?
     }
 }
