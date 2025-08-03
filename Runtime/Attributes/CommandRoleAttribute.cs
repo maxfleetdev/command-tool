@@ -10,6 +10,10 @@ namespace Commander
     {
         public CommandRole Role { get; }
 
+        /// <summary>
+        /// Default constructor for CommandRole attribute.
+        /// </summary>
+        /// <param name="role">This command's execution permission role</param>
         public CommandRoleAttribute(CommandRole role)
         {
             Role = role;

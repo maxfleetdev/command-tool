@@ -76,6 +76,17 @@ namespace Commander
             Descrption = string.Empty;
         }
 
+        /// <summary>
+        /// Constructor for Command attribute with the command role only.
+        /// </summary>
+        /// <param name="role">This command's execution permission role</param>
+        public CommandAttribute(CommandRole role)
+        {
+            Name = string.Empty;
+            Role = CommandRole.Any;
+            Descrption = string.Empty;
+        }
+
         #endregion
     }
 }
