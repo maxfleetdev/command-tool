@@ -1,5 +1,8 @@
 # Command Tool for Unity 2019+
 
+## Important Note
+This is an ongoing project, so expect changes. All code is not final and is subject to change. I am currently working on restructuring the repo to contain less git fluff
+
 ## Installation
 ### Option A (GIT Package):
 1) Open Unity Package Manager
