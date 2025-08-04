@@ -100,3 +100,7 @@ InitTestScene*.unity*
 
 # MacOS DS_Store
 .DS_Store
+
+.CODE_OF_CONDUCT.md.meta
+.LICENSE.meta
+.README.md.meta
