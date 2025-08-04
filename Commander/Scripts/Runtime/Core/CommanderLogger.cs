@@ -1,7 +1,6 @@
 using UnityEngine;
 using Commander.Settings;
 using UnityEditor;
-using System;
 
 namespace Commander.Core
 {
@@ -15,7 +14,6 @@ namespace Commander.Core
         private static void GetCommandSettings()
         {
             // Note: Use special folder to reduce scanning size?
-            // Note 2: Also use async to ensure this is loaded before register
             string[] assetGuids = AssetDatabase.FindAssets("t:CommandSettings", null);
 
             // None found so create one
@@ -44,6 +42,8 @@ namespace Commander.Core
 
         #endregion
 
+        #region Logging
+
         public static void LogMessage(string msg, CommandLogType type)
         {
             if (_cmdSettings == null || (_cmdSettings.LogType & type) != 0)
@@ -69,5 +69,7 @@ namespace Commander.Core
                     break;
             }
         }
+
+        #endregion
     }
 }
