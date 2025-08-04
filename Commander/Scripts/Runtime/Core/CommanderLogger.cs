@@ -1,6 +1,7 @@
 using UnityEngine;
 using Commander.Settings;
 using UnityEditor;
+using System;
 
 namespace Commander.Core
 {
@@ -32,8 +33,6 @@ namespace Commander.Core
                 CreateAsset();
                 return;
             }
-
-            Debug.Log("CommandSettings Loaded @ " + path);
         }
 
         private static void CreateAsset()
@@ -47,40 +46,27 @@ namespace Commander.Core
 
         public static void LogMessage(string msg, CommandLogType type)
         {
-            if (_cmdSettings == null)
+            if (_cmdSettings == null || (_cmdSettings.LogType & type) != 0)
             {
-                switch (type)
-                {
-                    case CommandLogType.WARNING:
-                        Debug.LogWarning(msg);
-                        break;
-
-                    case CommandLogType.ERROR:
-                        Debug.LogError(msg);
-                        break;
-
-                    default:
-                        Debug.Log(msg);
-                        break;
-                }
+                SendToConsole(msg, type);
             }
+        }
 
-            else if (_cmdSettings.LogType == type)
+        private static void SendToConsole(string msg, CommandLogType type)
+        {
+            switch (type)
             {
-                switch (type)
-                {
-                    case CommandLogType.WARNING:
-                        Debug.LogWarning(msg);
-                        break;
+                case CommandLogType.WARNING:
+                    Debug.LogWarning(msg);
+                    break;
 
-                    case CommandLogType.ERROR:
-                        Debug.LogError(msg);
-                        break;
+                case CommandLogType.ERROR:
+                    Debug.LogError(msg);
+                    break;
 
-                    default:
-                        Debug.Log(msg);
-                        break;
-                }
+                default:
+                    Debug.Log(msg);
+                    break;
             }
         }
     }

@@ -137,7 +137,8 @@ namespace Commander
             // Check if command even exists
             if (!_registeredCommands.TryGetValue(commandName, out var data))
             {
-                Debug.Log($"[CommandRegistry] No command with name '{commandName}'");
+                CommanderLogger.LogMessage($"[CommandRegistry] No command with name '{commandName}'",
+                    CommandLogType.INFO);
                 return false;
             }
 

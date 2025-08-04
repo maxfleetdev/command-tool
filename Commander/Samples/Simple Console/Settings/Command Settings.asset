@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb61d6e046674343acc42bbed5425b9, type: 3}
   m_Name: Command Settings
   m_EditorClassIdentifier: 
-  _logType: 0
+  _logType: 4
