@@ -4,6 +4,7 @@
 This is an ongoing project, so expect changes. All code is not final and is subject to change. I am currently working on restructuring the repo to contain less git fluff
 
 ## Planned Features
+- Command Settings Scriptable Oject (show logs, custom roles etc)
 - Automatic Command Registering (source code generator?)
 - Async for Executing/Registering
 - Attribute Flags (eg Hidden, Roles etc)
