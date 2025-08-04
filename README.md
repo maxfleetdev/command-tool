@@ -17,7 +17,7 @@ This is an ongoing project, so expect changes. All code is not final and is subj
 ### Option A (GIT Package):
 1) Open Unity Package Manager
 2) Click '+' icon and select 'Install from git URL'
-3) Paste <code>https://github.com/maxfleetdev/unity-command-tool.git</code> into prompt
+3) Paste ```https://github.com/maxfleetdev/unity-command-tool.git``` into prompt
 4) Hit Enter/Click done
 5) Package will begin installing
 
