@@ -1,6 +1,6 @@
 using System;
 using Commander.Core;
-using UnityEngine;
+using Commander.Settings;
 
 namespace Commander
 {
@@ -12,10 +12,18 @@ namespace Commander
             CommandParser.StringToCommand(userInput, out string command, out string[] args);
             var parameters = CommandRegistry.GetParameters(command);
 
-            // Ensure enough parameters from input is present
-            if (parameters.Length != args.Length)
+            // Check if command has no parameter requirements
+            if (parameters == null)
             {
-                Debug.Log($"Command {command}: Not enough parameters passed");
+                CommandRegistry.TryExecuteCommand(command, null);
+                return;
+            }
+
+            // Otherwise, Ensure enough parameters from input is present
+            else if (parameters.Length != args.Length)
+            {
+                CommanderLogger.LogMessage($"Command {command}: Not enough parameters passed",
+                    CommandLogType.INFO);
                 return;
             }
 
@@ -31,13 +39,14 @@ namespace Commander
                 }
                 catch (Exception e)
                 {
-                    // Failed (probably because DataType is not defined)
-                    Debug.LogWarning($"Command '{command}': Failed to convert \"{args[i]}\" to {t.Name}: {e.Message}");
+                    // Conversion Failure (DataType is not defined)
+                    CommanderLogger.LogMessage($"Command '{command}': Failed to convert \"{args[i]}\" to {t.Name}: {e.Message}",
+                        CommandLogType.ERROR);
                     return;
                 }
             }
 
-            // Try executing the command
+            // Try executing the command from CommandData struct
             CommandRegistry.TryExecuteCommand(command, converted);
         }
     }

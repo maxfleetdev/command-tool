@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using Commander.Core;
+using Commander.Settings;
 
 namespace Commander
 {
@@ -38,7 +39,7 @@ namespace Commander
         /// <summary>
         /// Called before the first scene loads. Registers all application static commands
         /// </summary>
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
         private static void AutoRegister()
         {
             ClearCommands();
@@ -79,7 +80,8 @@ namespace Commander
 
                 if (_registeredCommands.ContainsKey(cmdName))
                 {
-                    Debug.Log($"[CommandRegistry] Comamnd already registered with name '{cmdName}'");
+                    CommanderLogger.LogMessage($"[CommandRegistry] Comamnd already registered with name '{cmdName}'",
+                        CommandLogType.WARNING);
                     continue;
                 }
 
@@ -92,7 +94,8 @@ namespace Commander
                     // add flags here
                 );
 
-                Debug.Log($"[CommandRegistry] Registered Command '{cmdName}'");
+                CommanderLogger.LogMessage($"[CommandRegistry] Registered Command '{cmdName}'",
+                    CommandLogType.INFO);
             }
         }
 
@@ -115,7 +118,8 @@ namespace Commander
                         }
                         string cmdName = string.IsNullOrWhiteSpace(attr.Name) ? method.Name : attr.Name;
                         _registeredCommands[cmdName] = new CommandData(cmdName, attr.Descrption, method, null);
-                        Debug.Log($"[CommandRegistry] Registered Static Command '{cmdName}'");
+                        CommanderLogger.LogMessage($"[CommandRegistry] Registered Static Command '{cmdName}'",
+                            CommandLogType.INFO);
                     }
                 }
             }
@@ -166,7 +170,7 @@ namespace Commander
                 {
                     continue;
                 }
-                Debug.Log(kvp.Key + " - " + kvp.Value.CommandDesc);
+                Debug.Log(kvp.Key + ": " + kvp.Value.CommandDesc);
             }
         }
     }
