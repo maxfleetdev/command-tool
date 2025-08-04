@@ -10,7 +10,8 @@ namespace Commander.Core
     {
         private static readonly Regex _tokeniser = new Regex(
             @"[\""].+?[\""]|['].+?[']|[^ ]+",
-            RegexOptions.Compiled);
+            RegexOptions.Compiled
+        );
 
         /// <summary>
         /// Takes the raw input of the user and returns the command name and it's converted parameters
